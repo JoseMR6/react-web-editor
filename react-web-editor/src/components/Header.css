@@ -1,0 +1,33 @@
+header {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding-top: 8px;
+}
+
+#web-tool-logo {
+    width: 36px;
+    line-height: 0;
+}
+
+#web-tool-logo svg {
+    width: 100%;
+}
+
+#header-principal-container {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    gap: 5px;
+}
+
+#document-title-container {
+    display: block;
+}
+
+#document-options-container {
+    display: flex;
+    flex-direction: row;
+    font-size: 12px;
+    gap: 8px;
+}
