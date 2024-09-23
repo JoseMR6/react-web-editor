@@ -1,0 +1,12 @@
+npm init -y
+npm install standard -D
+
+npm create vite@latest
+nombre-proyecto
+React
+JavaScript + SWC
+cd ./nombre-proyecto/
+npm install
+
+npm run dev
+
