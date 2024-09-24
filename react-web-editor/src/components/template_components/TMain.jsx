@@ -1,6 +1,6 @@
 import './TMain.css'
 import { ELEMENT_TYPES } from '../../constants.js'
-import { Titulo, AddElement } from './TElements.jsx'
+import { Titulo, AddElement, Parrafo } from './TElements.jsx'
 import { useElements } from '../../hooks/useElements.js'
 
 export function TMain() {
@@ -17,17 +17,22 @@ export function TMain() {
                     if (elemento.type == ELEMENT_TYPES.ADD_ELEMENT) {
                         component = (
                             <AddElement
-                                key={elemento.id}
                                 id={elemento.id}
                             />
                         )
                     } else if (elemento.type == ELEMENT_TYPES.TITULO) {
                         component = (
                             <Titulo
-                                key={elemento.id}
                                 id={elemento.id}
                                 text={elemento.param.text}
                                 type={elemento.param.type}
+                            />
+                        )
+                    }else if(elemento.type == ELEMENT_TYPES.PARRAFO){
+                        component = (
+                            <Parrafo
+                                id={elemento.id}
+                                text={elemento.param.text}
                             />
                         )
                     }else{
@@ -35,9 +40,9 @@ export function TMain() {
                     }
 
                     return (
-                        <>
+                        <div key={elemento.id}>
                             {component}
-                        </>
+                        </div>
                     )
                 })}
 

@@ -1,0 +1,32 @@
+{
+    "elements":[
+        {
+            "id": "el0",
+            "type": "add_element"
+        },
+        {
+            "id": "el1",
+            "type": "titulo",
+            "param": {
+                "text": "Titulo h1 mock",
+                "type": "h1"
+            }
+        },
+        {
+            "id": "el2",
+            "type": "add_element"
+        },
+        {
+            "id": "el3",
+            "type": "titulo",
+            "param": {
+                "text": "Titulo h2 mock",
+                "type": "h2"
+            }
+        },
+        {
+            "id": "el4",
+            "type": "add_element"
+        }
+    ]
+}

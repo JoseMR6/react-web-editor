@@ -17,9 +17,9 @@ export function EditMenu() {
                 cont++
 
                 return (
-                    <>
-                        <EditMenuOptionHtmltag key={id} htmltag={tag} />
-                    </>
+                    <div key={id}>
+                        <EditMenuOptionHtmltag  htmltag={tag} />
+                    </div>
                 )
             })}
             
