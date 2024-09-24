@@ -1,14 +1,28 @@
-/*#edit-menu-container {
+#edit-menu-container {
     display: flex;
     flex-direction: row;
     background-color: #edf2fa;
-    gap: 10px;
+    gap: 3px;
     padding-left: 15px;
     padding-top: 10px;
     padding-bottom: 10px;
     border-radius: 15px;
     margin-left: 18px;
     margin-right: 18px;
+}
+
+.edit-option-text{
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.edit-option-text.selected, .edit-option-text:hover{
+    background-color: #969696;
+    border-radius: 4px;
+}
+
+.edit-option-text:hover{
+    cursor: pointer;
 }
 
 .edit-option-icon {
@@ -19,15 +33,4 @@
 }
 .menu-separator {
     border-left: 1px solid #969696;
-}*/
-
-#document-edit-container {
-    background-color: #ffffff;
-    border-top: 1px solid #969696;
-    border-left: 1px solid #969696;
-    height: 100%;
-    margin-top: 15px;
-    display: block;
-    /*align-items: stretch;*/
-    overflow: scroll;
 }

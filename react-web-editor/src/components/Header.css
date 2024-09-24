@@ -3,6 +3,8 @@ header {
     flex-direction: row;
     gap: 10px;
     padding-top: 8px;
+    margin-left: 18px;
+    margin-right: 18px;
 }
 
 #web-tool-logo {

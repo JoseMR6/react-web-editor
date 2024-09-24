@@ -1,0 +1,35 @@
+#template-main h1{
+    border-bottom: 2px solid #6d6d6d;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#template-main h2{
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+#template-main h3{
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.add-element{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.add-element span{
+    font-size: larger;
+    font-weight: bold;
+    background-color: #edf2fa;
+    padding: 10px;
+    line-height: 1;
+    border-radius: 12px;
+}
+
+.add-element span:hover{
+    cursor: pointer;
+    background-color: #a1a4a8;
+}

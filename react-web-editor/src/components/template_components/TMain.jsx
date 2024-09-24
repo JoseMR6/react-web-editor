@@ -1,95 +1,10 @@
 import './TMain.css'
-import { PropTypes } from 'prop-types'
-import { useId, useState } from 'react'
-import { TITLE_TYPES, ELEMENT_TYPES } from '../../constants.js'
-import { addElements } from '../../logic/elements.js'
-
-export function Titulo({ id, text, type }) {
-    var textHtml = "<" + type + ">" + text + "</" + type + ">"
-
-    return (
-        <>
-            <div id={id} className='element-container'
-                dangerouslySetInnerHTML={{ __html: textHtml }}
-            />
-        </>
-    )
-}
-
-Titulo.propTypes = {
-    id: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired
-}
-
-
-export function AddElement({ id, elementos, setElementos }) {
-    const elementType = ELEMENT_TYPES.TITULO
-    const elementOptions = {
-        text: "Titulo de add element",
-        type: TITLE_TYPES.H3
-    }
-    const newIds = {
-        1: useId(),
-        2: useId(),
-        3: useId()
-    }
-    const idElement = id
-
-    return (
-        <>
-            <div id={idElement} className='add-element'>
-                <span onClick={() =>
-                    addElements({ idElement, elementType, elementOptions, 
-                        newIds, elementos, setElementos 
-                    })}
-                >
-                    +
-                </span>
-            </div>
-        </>
-    )
-}
-
-AddElement.propTypes = {
-    id: PropTypes.string.isRequired,
-    elementos: PropTypes.array.isRequired,
-    setElementos: PropTypes.func.isRequired
-}
+import { ELEMENT_TYPES } from '../../constants.js'
+import { Titulo, AddElement } from './TElements.jsx'
+import { useElements } from '../../hooks/useElements.js'
 
 export function TMain() {
-    const [elementos, setElementos] = useState(
-        [
-            {
-                id: useId(),
-                type: ELEMENT_TYPES.ADD_ELEMENT
-            },
-            {
-                id: useId(),
-                type: ELEMENT_TYPES.TITULO,
-                param: {
-                    text: 'Titulo h1 mock',
-                    type: TITLE_TYPES.H1
-                }
-            },
-            {
-                id: useId(),
-                type: ELEMENT_TYPES.ADD_ELEMENT
-            },
-            {
-                id: useId(),
-                type: ELEMENT_TYPES.TITULO,
-                param: {
-                    text: 'Titulo h2 mock',
-                    type: TITLE_TYPES.H2
-                }
-            },
-            {
-                id: useId(),
-                type: ELEMENT_TYPES.ADD_ELEMENT
-            }
-        ]
-    )
+    const {elementos} = useElements()
 
     return (
         <>
@@ -104,8 +19,6 @@ export function TMain() {
                             <AddElement
                                 key={elemento.id}
                                 id={elemento.id}
-                                elementos={elementos}
-                                setElementos={setElementos}
                             />
                         )
                     } else if (elemento.type == ELEMENT_TYPES.TITULO) {
@@ -117,6 +30,8 @@ export function TMain() {
                                 type={elemento.param.type}
                             />
                         )
+                    }else{
+                        throw new Error('Elemento tiene un tipo no esperado')
                     }
 
                     return (
@@ -132,11 +47,11 @@ export function TMain() {
             <main id='template-main'>
                 <Titulo 
                     text={'Titulo h1'} 
-                    type={TITLE_TYPES.H1}
+                    type={HTML_TAG_TYPES.H1}
                 />
                 <Titulo 
                     text={'Titulo h2'} 
-                    type={TITLE_TYPES.H2}
+                    type={HTML_TAG_TYPES.H2}
                 />
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -154,7 +69,7 @@ export function TMain() {
                 <div className='element-separator'/>
                 <Titulo 
                     text={'Titulo h2'} 
-                    type={TITLE_TYPES.H2}
+                    type={HTML_TAG_TYPES.H2}
                 />
                 <p>
                     Aenean lacus turpis, facilisis eu cursus in, posuere posuere mi.
@@ -163,14 +78,14 @@ export function TMain() {
                 </p>
                 <Titulo 
                     text={'Titulo h3'} 
-                    type={TITLE_TYPES.H3}
+                    type={HTML_TAG_TYPES.H3}
                 />
                 <p>
                     Vivamus consectetur leo ante, quis gravida arcu porta ac.
                 </p>
                 <Titulo 
                     text={'Titulo h3'} 
-                    type={TITLE_TYPES.H3}
+                    type={HTML_TAG_TYPES.H3}
                 />
                 <p>
                     Integer commodo est placerat, lacinia tellus sed, dapibus turpis.
@@ -178,7 +93,7 @@ export function TMain() {
                 </p>
                 <Titulo 
                     text={'Titulo h3'} 
-                    type={TITLE_TYPES.H3}
+                    type={HTML_TAG_TYPES.H3}
                 />
                 <p>
                     Morbi varius tortor dolor, scelerisque scelerisque lectus consectetur et.

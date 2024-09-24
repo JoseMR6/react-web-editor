@@ -9,7 +9,7 @@ export function addElements({ idElement, elementType, elementOptions, newIds, el
         )
 
         const newElementos = structuredClone(elementos)
-        newElementos.splice(posicionAddElement, 1, 
+        newElementos.splice(posicionAddElement, 0, 
             {
                 id: newIds[1],
                 type: ELEMENT_TYPES.ADD_ELEMENT
@@ -21,10 +21,6 @@ export function addElements({ idElement, elementType, elementOptions, newIds, el
                     text: elementOptions.text,
                     type: elementOptions.type
                 }
-            },
-            {
-                id: newIds[3],
-                type: ELEMENT_TYPES.ADD_ELEMENT
             }
         )
 
