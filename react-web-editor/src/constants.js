@@ -5,10 +5,7 @@ export const HTML_TAG_TYPES = {
     H4: 'h4',
     H5: 'h5',
     H6: 'h6',
-    P: 'p',
-    UL: 'ul',
-    OL: 'ol',
-    FORM: 'form'
+    P: 'p'
 }
 
 export const ELEMENT_TYPES = {
