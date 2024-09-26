@@ -7,16 +7,16 @@ import { ElementsProvider } from './contexts/ElementsContext.jsx'
 import { MenuProvider } from './contexts/MenuContext.jsx'
 
 function App() {
-  const {modo, toggleModo} = useModo()
+  const { modo } = useModo()
 
   return (
     <ElementsProvider>
-    <MenuProvider>
-      {modo == 'edicion' && <div id='general-container'>
-        <Header toggleModo={toggleModo}/>
-        <Document />
-      </div>}
-      {modo == 'visualizacion' && <TIndex />}
+      <MenuProvider>
+        {modo == 'edicion' && <div id='general-container'>
+          <Header />
+          <Document />
+        </div>}
+        {modo == 'visualizacion' && <TIndex />}
       </MenuProvider>
     </ElementsProvider>
   )

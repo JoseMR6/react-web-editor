@@ -1,10 +1,9 @@
 import { WebToolIcon } from './Icons.jsx'
 import './Header.css'
 import { useEffect, useState } from 'react'
-import { openWindowScreen, toggleFullscreen } from '../logic/window.js'
-import { PropTypes } from 'prop-types'
+import { ArchivoOption, EditarOption, VerOption } from './DocumentMenuOptions.jsx'
 
-export function Header({ toggleModo }) {
+export function Header() {
     const [depVer, setDepVer] = useState(false)
 
     useEffect(() => {
@@ -31,19 +30,9 @@ export function Header({ toggleModo }) {
                         <span>Documento sin título</span>
                     </div>
                     <div id='document-options-container'>
-                        <div className='document-option'><span>Archivo</span></div>
-                        <div className='document-option'><span>Editar</span></div>
-                        <div className={'document-option'}>
-                            <span
-                                onClick={() => { setDepVer(!depVer) }}
-                                className={depVer ? 'deployed' : ''}
-                            >Ver</span>
-                            <ul style={{ visibility: !depVer && 'hidden' }}>
-                                <li onMouseDown={toggleFullscreen}>Pantalla Completa</li>
-                                <li onMouseDown={openWindowScreen}>Ventana nueva</li>
-                                <li onMouseDown={toggleModo}>Modo Visualizacion</li>
-                            </ul>
-                        </div>
+                        <ArchivoOption/>
+                        <EditarOption/>
+                        <VerOption depVer={depVer} setDepVer={setDepVer}/>
                     </div>
                 </div>
 
@@ -51,8 +40,4 @@ export function Header({ toggleModo }) {
 
         </>
     )
-}
-
-Header.propTypes = {
-    toggleModo: PropTypes.func.isRequired
 }

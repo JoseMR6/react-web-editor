@@ -1,6 +1,5 @@
 import './TMain.css'
-import { ELEMENT_TYPES } from '../../constants.js'
-import { Titulo, AddElement, Parrafo } from './TElements.jsx'
+import { Element } from './TElements.jsx'
 import { useElements } from '../../hooks/useElements.js'
 
 export function TMain() {
@@ -11,38 +10,13 @@ export function TMain() {
             <main id='template-main'>
 
                 {elementos.map(elemento => {
-
-                    var component = <div key={elemento.id}>error</div>
-
-                    if (elemento.type == ELEMENT_TYPES.ADD_ELEMENT) {
-                        component = (
-                            <AddElement
-                                id={elemento.id}
-                            />
-                        )
-                    } else if (elemento.type == ELEMENT_TYPES.TITULO) {
-                        component = (
-                            <Titulo
-                                id={elemento.id}
-                                text={elemento.param.text}
-                                type={elemento.param.type}
-                            />
-                        )
-                    }else if(elemento.type == ELEMENT_TYPES.PARRAFO){
-                        component = (
-                            <Parrafo
-                                id={elemento.id}
-                                text={elemento.param.text}
-                            />
-                        )
-                    }else{
-                        throw new Error('Elemento tiene un tipo no esperado')
-                    }
-
                     return (
-                        <div key={elemento.id}>
-                            {component}
-                        </div>
+                        <Element 
+                            key={elemento.id} 
+                            id={elemento.id}
+                            type={elemento.type}
+                            param={elemento.param}
+                        />
                     )
                 })}
 

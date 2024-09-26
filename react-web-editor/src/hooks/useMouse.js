@@ -67,7 +67,7 @@ export function useMouse() {
                 window.removeEventListener(event.type, event.function)
             });
         }
-    }, [draggedElement])
+    }, [draggedElement, addElements])
 
     return {
         draggedElement, setDraggedElement,

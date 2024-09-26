@@ -1,14 +1,14 @@
-import { useState } from "react"
+import { useContext } from "react"
+import { ModoContext } from "../contexts/ModoContext.jsx"
 
 export function useModo() {
-    const [modo, setModo] = useState('edicion')
+    const context = useContext(ModoContext)
 
-    const toggleModo = () => {
-        if (modo == 'edicion') {
-            setModo('visualizacion')
-        } else {
-            setModo('edicion')
-        }
+    if(context == undefined){
+        throw new Error('useModo must be used whithin a ModoProvider')
     }
+
+    const {modo, toggleModo} = context
+
     return {modo, toggleModo}
 }

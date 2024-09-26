@@ -33,3 +33,21 @@
     cursor: pointer;
     background-color: #a1a4a8;
 }
+
+.delete-element:hover{
+    background-color: #585858;
+    cursor: pointer;
+}
+
+.delete-element{
+    background-color: #edf2fa;
+    padding: 10px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    font-weight: bold;
+    font-size: large;
+    line-height: 1;
+    border-radius: 10px;
+    float: right;
+    position: relative;
+}

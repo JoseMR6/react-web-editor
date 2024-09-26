@@ -80,5 +80,20 @@ export function useElements() {
         setElementos(newElementos)
     }
 
-    return { elementos, setElementos, contElements, addElements }
+    const removeElement = ({idElement})=> {
+        const posicionElement = elementos.findIndex(
+            (element) => element.id == idElement
+        )
+
+        if (posicionElement < 0) {
+            throw new Error('undefined element cant be removed')
+        }
+
+        const newElementos = structuredClone(elementos)
+        newElementos.splice(posicionElement, 2)
+
+        setElementos(newElementos)
+    }
+
+    return { elementos, setElementos, contElements, addElements, removeElement }
 }

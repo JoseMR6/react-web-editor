@@ -33,34 +33,3 @@ header {
     font-size: 12px;
     gap: 2px;
 }
-
-.document-option span{
-    padding: 4px;
-    border-radius: 3px;
-    cursor: pointer;
-}
-
-.document-option span:hover, .document-option .deployed{
-    background-color: #b6b6b6;
-}
-
-.document-option ul{
-    position: absolute;
-    background-color: #ffffff;
-    box-shadow: 0px 0px 3px rgba(75, 75, 75, 0.678);
-    list-style: none;
-    margin: 0;
-    margin-top: 5px;
-    padding: 0;
-    text-align: left;
-    border-radius: 5px;
-}
-
-.document-option ul li{
-    padding: 6px;
-}
-
-.document-option ul li:hover{
-    background-color: #a7a5a5;
-    cursor: pointer;
-}
