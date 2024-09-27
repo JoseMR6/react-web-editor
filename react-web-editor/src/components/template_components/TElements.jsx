@@ -7,7 +7,7 @@ import { ELEMENT_TYPES } from '../../constants.js'
 
 export function Element({ id, type, param }) {
     const [seeEditOptions, setSeeEditOptions] = useState(false)
-    const {removeElement} = useElements()
+    const { removeElement } = useElements()
     var component = <div>error</div>
 
     if (type == ELEMENT_TYPES.ADD_ELEMENT) {
@@ -43,7 +43,7 @@ export function Element({ id, type, param }) {
             {type != ELEMENT_TYPES.ADD_ELEMENT &&
                 <span className='delete-element'
                     style={{ visibility: !seeEditOptions && 'hidden' }}
-                    onClick={()=>removeElement({idElement:id})}
+                    onClick={() => removeElement({ idElement: id })}
                 >-</span>
             }
             {component}
@@ -58,12 +58,23 @@ Element.propTypes = {
 }
 
 export function Titulo({ id, text, type }) {
-    var textHtml = "<" + type + ">" + text + "</" + type + ">"
+    const [textValue, setTextValue] = useState(text)
+    const [verInput, setVerImput] = useState(false)
+    const handleOnChange = (event) => { setTextValue(event.target.value) }
+    const textHtml = "<" + type + ">" + textValue + "</" + type + ">"
 
     return (
         <>
-            <div id={id} className='element-container'>
-                <div dangerouslySetInnerHTML={{ __html: textHtml }} />
+            <div id={id} className={'element-container titulo-' + type}
+                onMouseLeave={() => { setVerImput(false) }}
+            >
+                <input type='text' value={textValue} onChange={handleOnChange}
+                    style={{ visibility: !verInput && 'hidden' }}
+                />
+                <div dangerouslySetInnerHTML={{ __html: textHtml }}
+                    onClick={() => { setVerImput(true) }}
+                />
+
             </div>
         </>
     )
@@ -76,10 +87,28 @@ Titulo.propTypes = {
 }
 
 export function Parrafo({ id, text }) {
+    const [textValue, setTextValue] = useState(text)
+    const [verInput, setVerImput] = useState(false)
+    const handleOnChange = (event) => { setTextValue(event.target.value) }
+
+    const textParrafo = (text) => {
+        const replacedText = text.replaceAll('\n','<br/>')
+        return replacedText
+    } 
+    
     return (
         <>
-            <div id={id} className='element-container'>
-                <p>{text}</p>
+            <div id={id} className='element-container parrafo'
+                onMouseLeave={() => { setVerImput(false) }}
+            >
+                <textarea
+                    onChange={handleOnChange}
+                    style={{ visibility: !verInput && 'hidden' }}
+                    value={textValue}
+                />
+                <p onClick={() => { setVerImput(true)}}
+                    dangerouslySetInnerHTML={{ __html: textParrafo(textValue) }}
+                />
             </div>
         </>
     )

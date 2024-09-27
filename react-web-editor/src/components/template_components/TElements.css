@@ -1,17 +1,109 @@
-#template-main h1{
+.element-container{
+    position: relative;
+}
+
+.element-container h1{
     border-bottom: 2px solid #6d6d6d;
     margin-top: 20px;
     margin-bottom: 20px;
+    font-size: 32px;
+    font-weight: bold;
 }
 
-#template-main h2{
+.element-container.titulo-h1 input{
+    font-size: 32px;
+    font-weight: bold;
+    font-family: sans-serif;
+    position: absolute;
+    margin-left: -2px;
+}
+
+.element-container h2{
     margin-top: 15px;
     margin-bottom: 5px;
+    font-size: 24px;
+    font-weight: bold;
 }
 
-#template-main h3{
+.element-container.titulo-h2 input{
+    font-size: 24px;
+    font-weight: bold;
+    font-family: sans-serif;
+    position: absolute;
+    margin-left: -2px;
+}
+
+.element-container h3{
     margin-top: 10px;
     margin-bottom: 0px;
+    font-size: 19px;
+    font-weight: bold;
+}
+
+.element-container.titulo-h3 input{
+    font-size: 19px;
+    font-weight: bold;
+    font-family: sans-serif;
+    position: absolute;
+    margin-left: -2px;
+}
+
+.element-container h4{
+    margin-top: 10px;
+    margin-bottom: 0px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.element-container.titulo-h4 input{
+    font-size: 16px;
+    font-weight: bold;
+    font-family: sans-serif;
+    position: absolute;
+    margin-left: -2px;
+}
+
+.element-container h5{
+    margin-top: 10px;
+    margin-bottom: 0px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.element-container.titulo-h5 input{
+    font-size: 14px;
+    font-weight: bold;
+    font-family: sans-serif;
+    position: absolute;
+    margin-left: -2px;
+}
+
+.element-container h6{
+    margin-top: 10px;
+    margin-bottom: 0px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.element-container.titulo-h6 input{
+    font-size: 11px;
+    font-weight: bold;
+    font-family: sans-serif;
+    position: absolute;
+    margin-left: -2px;
+}
+
+.element-container p{
+    font-size: 16px;
+}
+
+.element-container.parrafo textarea{
+    font-size: 16px;
+    font-family: sans-serif;
+    position: absolute;
+    margin-left: -2px;
+    width: 100%;
+    height: 100%;
 }
 
 .add-element{
