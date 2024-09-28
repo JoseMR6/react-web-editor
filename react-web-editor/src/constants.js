@@ -13,3 +13,9 @@ export const ELEMENT_TYPES = {
     TITULO: 'titulo',
     PARRAFO: 'parrafo'
 }
+
+export const FUENTES = [
+    'sans-serif',
+    'Arial',
+    'Helvetica'
+]

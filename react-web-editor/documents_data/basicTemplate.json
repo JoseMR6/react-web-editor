@@ -13,7 +13,8 @@
             },
             "style": {
                 "color": "#cf0a0a",
-                "backgroundColor": "rgb(237, 242, 250)"
+                "backgroundColor": "rgb(237, 242, 250)",
+                "fontSize": "32px"
             }
         },
         {
@@ -26,6 +27,9 @@
             "param": {
                 "text": "Titulo h2 mock",
                 "type": "h2"
+            },
+            "style": {
+                "fontFamily": "Arial"
             }
         },
         {

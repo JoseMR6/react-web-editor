@@ -10,7 +10,8 @@ export function useElements() {
         throw new Error('useElements must be used whithin a ElementsProvider')
     }
 
-    const { elementos, setElementos, contElements } = context
+    const { elementos, setElementos, contElements, elementoEditando,setElementoEditando
+    } = context
 
     const addElements = ({idElement, addTag}) => {
         var elementType = undefined
@@ -95,5 +96,7 @@ export function useElements() {
         setElementos(newElementos)
     }
 
-    return { elementos, setElementos, contElements, addElements, removeElement }
+    return { elementos, setElementos, contElements, elementoEditando,setElementoEditando, 
+        addElements, removeElement 
+    }
 }

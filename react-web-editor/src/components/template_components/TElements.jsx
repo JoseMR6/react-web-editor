@@ -7,7 +7,7 @@ import { ELEMENT_TYPES } from '../../constants.js'
 
 export function Element({ id, type, param, style }) {
     const [seeEditOptions, setSeeEditOptions] = useState(false)
-    const { removeElement } = useElements()
+    const { removeElement, setElementoEditando } = useElements()
     var component = <div>error</div>
 
     if (type == ELEMENT_TYPES.ADD_ELEMENT) {
@@ -39,8 +39,15 @@ export function Element({ id, type, param, style }) {
 
     return (
         <div
-            onMouseEnter={() => { setSeeEditOptions(true) }}
+            onMouseEnter={() => { 
+                setSeeEditOptions(true) 
+                /*if(type != ELEMENT_TYPES.ADD_ELEMENT){
+                    setElementoEditando(id)
+                    //console.log(elementoEditando.current)
+                }*/
+            }}
             onMouseLeave={() => { setSeeEditOptions(false) }}
+            onClick={()=>{if(type != ELEMENT_TYPES.ADD_ELEMENT){setElementoEditando(id)}}}
         >
             {type != ELEMENT_TYPES.ADD_ELEMENT &&
                 <span className='delete-element'
