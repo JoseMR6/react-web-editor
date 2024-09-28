@@ -1,7 +1,7 @@
 #edit-menu-container {
     display: flex;
     flex-direction: row;
-    background-color: #edf2fa;
+    background-color: var(--color-4);
     gap: 3px;
     padding-left: 15px;
     padding-top: 10px;

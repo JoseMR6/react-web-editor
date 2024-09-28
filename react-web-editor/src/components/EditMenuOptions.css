@@ -5,7 +5,7 @@
 }
 
 .edit-option-text.selected, .edit-option-text:hover{
-    background-color: #969696;
+    background-color: var(--color-3);
     border-radius: 4px;
 }
 

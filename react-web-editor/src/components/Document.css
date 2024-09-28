@@ -1,7 +1,6 @@
 #document-edit-container {
-    background-color: #ffffff;
-    border-top: 1px solid #969696;
-    border-left: 1px solid #969696;
+    background-color: var(--color-1);
+    border-top: 1px solid var(--color-3);
     height: 100%;
     margin-top: 15px;
     display: block;

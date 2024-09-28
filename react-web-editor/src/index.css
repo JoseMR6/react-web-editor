@@ -3,8 +3,15 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color: #000000;
-  background-color: #f9fbfd;
+  /*variables*/
+  --color-1: #f9fbfd;
+  --color-2: #000000;
+  --color-3: #969696;
+  --color-4: #edf2fa;
+  --color-5: #ffffff;
+
+  color: var(var(--color-2));
+  background-color: var(--color-1);
 }
 
 html {

@@ -5,7 +5,7 @@ import { useMenu } from '../../hooks/useMenu.js'
 import { useState } from 'react'
 import { ELEMENT_TYPES } from '../../constants.js'
 
-export function Element({ id, type, param }) {
+export function Element({ id, type, param, style }) {
     const [seeEditOptions, setSeeEditOptions] = useState(false)
     const { removeElement } = useElements()
     var component = <div>error</div>
@@ -22,6 +22,7 @@ export function Element({ id, type, param }) {
                 id={id}
                 text={param.text}
                 type={param.type}
+                style={style}
             />
         )
     } else if (type == ELEMENT_TYPES.PARRAFO) {
@@ -29,6 +30,7 @@ export function Element({ id, type, param }) {
             <Parrafo
                 id={id}
                 text={param.text}
+                style={style}
             />
         )
     } else {
@@ -54,14 +56,40 @@ export function Element({ id, type, param }) {
 Element.propTypes = {
     id: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
-    param: PropTypes.object
+    param: PropTypes.object,
+    style: PropTypes.object
 }
 
-export function Titulo({ id, text, type }) {
+export function Titulo({ id, text, type, style }) {
     const [textValue, setTextValue] = useState(text)
     const [verInput, setVerImput] = useState(false)
     const handleOnChange = (event) => { setTextValue(event.target.value) }
-    const textHtml = "<" + type + ">" + textValue + "</" + type + ">"
+
+    var htmlStyle = ''
+
+    if(style != undefined){
+        htmlStyle+=' style="'
+        
+        Object.getOwnPropertyNames(style).forEach((name)=>{
+            var formatName = ''
+            
+            for(var i=0;i<name.length;i++){
+                const char=name.charAt(i)
+                if(char==char.toUpperCase()){
+                    formatName+='-'+char.toLowerCase()
+                }else{
+                    formatName+=char
+                }
+            }
+            
+            htmlStyle+=formatName+":"+style[name]+";"
+        })
+
+        htmlStyle+='"'
+
+    }
+
+    const textHtml = "<" + type + htmlStyle+">" + textValue + "</" + type + ">"
 
     return (
         <>
@@ -69,7 +97,7 @@ export function Titulo({ id, text, type }) {
                 onMouseLeave={() => { setVerImput(false) }}
             >
                 <input type='text' value={textValue} onChange={handleOnChange}
-                    style={{ visibility: !verInput && 'hidden' }}
+                    style={{ visibility: !verInput && 'hidden' , ...style}}
                 />
                 <div dangerouslySetInnerHTML={{ __html: textHtml }}
                     onClick={() => { setVerImput(true) }}
@@ -83,10 +111,11 @@ export function Titulo({ id, text, type }) {
 Titulo.propTypes = {
     id: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired
+    type: PropTypes.string.isRequired,
+    style: PropTypes.object
 }
 
-export function Parrafo({ id, text }) {
+export function Parrafo({ id, text, style }) {
     const [textValue, setTextValue] = useState(text)
     const [verInput, setVerImput] = useState(false)
     const handleOnChange = (event) => { setTextValue(event.target.value) }
@@ -95,6 +124,12 @@ export function Parrafo({ id, text }) {
         const replacedText = text.replaceAll('\n','<br/>')
         return replacedText
     } 
+
+    var htmlStyle={}
+
+    if(style != undefined){
+        htmlStyle=style
+    }
     
     return (
         <>
@@ -103,11 +138,12 @@ export function Parrafo({ id, text }) {
             >
                 <textarea
                     onChange={handleOnChange}
-                    style={{ visibility: !verInput && 'hidden' }}
+                    style={{ visibility: !verInput && 'hidden', ...style}}
                     value={textValue}
                 />
                 <p onClick={() => { setVerImput(true)}}
                     dangerouslySetInnerHTML={{ __html: textParrafo(textValue) }}
+                    style={htmlStyle}
                 />
             </div>
         </>
@@ -116,7 +152,8 @@ export function Parrafo({ id, text }) {
 
 Parrafo.propTypes = {
     id: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired
+    text: PropTypes.string.isRequired,
+    style: PropTypes.object
 }
 
 export function AddElement({ id }) {

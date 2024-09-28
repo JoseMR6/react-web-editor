@@ -16,6 +16,7 @@ export function TMain() {
                             id={elemento.id}
                             type={elemento.type}
                             param={elemento.param}
+                            style={elemento.style}
                         />
                     )
                 })}

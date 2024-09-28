@@ -2,6 +2,10 @@ import { PropTypes } from 'prop-types'
 import { useMenu } from '../hooks/useMenu'
 import './EditMenuOptions.css'
 import { useMouse } from '../hooks/useMouse'
+import {
+    TextColorIcon, TextAlignLeftIcon, TextAlignCenterIcon, TextAlignRightIcon,
+    TextAlignJustifyIcon
+} from './Icons.jsx'
 
 export function EditMenuOptionHtmltag({htmltag}) {
     const {selectedTag, setSelectedTag} = useMenu()
@@ -40,4 +44,19 @@ export function EditMenuOptionHtmltag({htmltag}) {
 
 EditMenuOptionHtmltag.propTypes = {
     htmltag: PropTypes.string.isRequired
+}
+
+export function EditElementOptions (){
+    
+    return(
+        <>
+            <div className='edit-option-text'>Arial</div>
+            <div className='edit-option-text'>- 13 +</div>
+            <div className='edit-option-icon'><TextColorIcon /></div>
+            <div className='edit-option-icon'><TextAlignLeftIcon /></div>
+            <div className='edit-option-icon'><TextAlignCenterIcon /></div>
+            <div className='edit-option-icon'><TextAlignRightIcon /></div>
+            <div className='edit-option-icon'><TextAlignJustifyIcon /></div>
+        </>
+    )
 }

@@ -142,4 +142,8 @@
     border-radius: 10px;
     float: right;
     position: relative;
+    z-index: 20;
+    border-color: var(--color-5);
+    border-style: solid;
+    border-width: 2px;
 }

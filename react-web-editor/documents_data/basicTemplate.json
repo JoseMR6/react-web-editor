@@ -10,6 +10,10 @@
             "param": {
                 "text": "Titulo h1 mock",
                 "type": "h1"
+            },
+            "style": {
+                "color": "#cf0a0a",
+                "backgroundColor": "rgb(237, 242, 250)"
             }
         },
         {
@@ -26,6 +30,21 @@
         },
         {
             "id": "el4",
+            "type": "add_element"
+        },
+        {
+            "id": "el5",
+            "type": "parrafo",
+            "param": {
+                "text": "Parrafo de prueba"
+            },
+            "style": {
+                "color": "#969696",
+                "backgroundColor": "rgb(237, 242, 250)"
+            }
+        },
+        {
+            "id": "el6",
             "type": "add_element"
         }
     ]
