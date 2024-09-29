@@ -10,7 +10,8 @@ export function useElements() {
         throw new Error('useElements must be used whithin a ElementsProvider')
     }
 
-    const { elementos, setElementos, contElements, elementoEditando,setElementoEditando
+    const { elementos, setElementos, contElements, elementoEditando,setElementoEditando,
+        globalEstyles, setGlobalEstyles
     } = context
 
     const addElements = ({idElement, addTag}) => {
@@ -29,6 +30,9 @@ export function useElements() {
         } else if (addTag == HTML_TAG_TYPES.P) {
             elementType = ELEMENT_TYPES.PARRAFO
             tagText = "Párrafo " + addTag + " de add element"
+        }else if(addTag == HTML_TAG_TYPES.SEP){
+            elementType = ELEMENT_TYPES.SEPARADOR
+            tagText=''
         }
 
         const elementOptions = {
@@ -68,6 +72,11 @@ export function useElements() {
                     type: elementOptions.type
                 }
             }
+        } else if(elementType == ELEMENT_TYPES.SEPARADOR){
+            newElement = {
+                id: newIds[2],
+                type: elementType
+            }
         } else {
             throw new Error('undefined element cant be added')
         }
@@ -97,6 +106,6 @@ export function useElements() {
     }
 
     return { elementos, setElementos, contElements, elementoEditando,setElementoEditando, 
-        addElements, removeElement 
+        globalEstyles, setGlobalEstyles,addElements, removeElement 
     }
 }

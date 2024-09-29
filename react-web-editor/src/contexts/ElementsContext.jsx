@@ -57,6 +57,7 @@ export function ElementsProvider({ children }) {
         return documentoJson
     })
     const [elementoEditando, setElementoEditando] = useState(undefined)
+    const [globalEstyles, setGlobalEstyles] = useState(basicTemplate.style)
 
     return (
         <ElementsContext.Provider value={{
@@ -64,7 +65,8 @@ export function ElementsProvider({ children }) {
             setElementos,
             contElements,
             elementoEditando,
-            setElementoEditando
+            setElementoEditando,
+            globalEstyles, setGlobalEstyles
         }}>
             {children}
         </ElementsContext.Provider>

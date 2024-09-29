@@ -8,7 +8,9 @@ export function useMenu(){
         throw new Error('useMenu must be used whithin a MenuProvider')
     }
     
-    const {selectedTag, setSelectedTag} = context
+    const {selectedTag, setSelectedTag,selectedElementType,
+        setSelectedElementType} = context
 
-    return {selectedTag, setSelectedTag}
+    return {selectedTag, setSelectedTag,selectedElementType,
+        setSelectedElementType}
 }

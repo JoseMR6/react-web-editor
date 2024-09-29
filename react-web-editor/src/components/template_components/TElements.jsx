@@ -3,12 +3,31 @@ import { useElements } from '../../hooks/useElements.js'
 import './TElements.css'
 import { useMenu } from '../../hooks/useMenu.js'
 import { useState } from 'react'
-import { ELEMENT_TYPES } from '../../constants.js'
+import { ELEMENT_TYPES, SELECTED_ELEMENT_TYPES } from '../../constants.js'
+import { formatHtmlText } from '../../logic/text.js'
 
 export function Element({ id, type, param, style }) {
     const [seeEditOptions, setSeeEditOptions] = useState(false)
-    const { removeElement, setElementoEditando } = useElements()
+    const { removeElement, setElementoEditando, globalEstyles } = useElements()
+    const {setSelectedElementType} = useMenu()
     var component = <div>error</div>
+
+    const heredarGlobalStyles = (fullStyle)=>{
+        var newStyle = structuredClone(fullStyle)
+        
+        if(newStyle == undefined) newStyle={}
+        if(globalEstyles.general==undefined) return newStyle
+        if(newStyle.color == undefined && globalEstyles.general.color!=undefined) 
+            newStyle.color = globalEstyles.general.color
+        if(newStyle.fontFamily == undefined&& globalEstyles.general.fontFamily!=undefined) 
+            newStyle.fontFamily = globalEstyles.general.fontFamily
+        if(newStyle.textAlign == undefined&& globalEstyles.general.textAlign!=undefined) 
+            newStyle.textAlign = globalEstyles.general.textAlign
+
+        return newStyle
+    }
+
+    var fullStyle = style
 
     if (type == ELEMENT_TYPES.ADD_ELEMENT) {
         component = (
@@ -17,20 +36,30 @@ export function Element({ id, type, param, style }) {
             />
         )
     } else if (type == ELEMENT_TYPES.TITULO) {
+        fullStyle=heredarGlobalStyles(fullStyle)
+        
         component = (
             <Titulo
                 id={id}
                 text={param.text}
                 type={param.type}
-                style={style}
+                style={fullStyle}
             />
         )
     } else if (type == ELEMENT_TYPES.PARRAFO) {
+        fullStyle=heredarGlobalStyles(fullStyle)
+
         component = (
             <Parrafo
                 id={id}
                 text={param.text}
-                style={style}
+                style={fullStyle}
+            />
+        )
+    }else if (type == ELEMENT_TYPES.SEPARADOR) {
+        component = (
+            <Separador
+                id={id}
             />
         )
     } else {
@@ -41,13 +70,14 @@ export function Element({ id, type, param, style }) {
         <div
             onMouseEnter={() => { 
                 setSeeEditOptions(true) 
-                /*if(type != ELEMENT_TYPES.ADD_ELEMENT){
-                    setElementoEditando(id)
-                    //console.log(elementoEditando.current)
-                }*/
             }}
             onMouseLeave={() => { setSeeEditOptions(false) }}
-            onClick={()=>{if(type != ELEMENT_TYPES.ADD_ELEMENT){setElementoEditando(id)}}}
+            onClick={()=>{
+                if(type != ELEMENT_TYPES.ADD_ELEMENT){
+                    setElementoEditando(id)
+                    setSelectedElementType(SELECTED_ELEMENT_TYPES.SELECTED_ELEMENT)
+                }
+            }}
         >
             {type != ELEMENT_TYPES.ADD_ELEMENT &&
                 <span className='delete-element'
@@ -67,6 +97,16 @@ Element.propTypes = {
     style: PropTypes.object
 }
 
+export function Separador({id}){
+    return(
+        <div id={id} className='element-separator'/>
+    )
+}
+
+Separador.propTypes = {
+    id: PropTypes.string.isRequired
+}
+
 export function Titulo({ id, text, type, style }) {
     const [textValue, setTextValue] = useState(text)
     const [verInput, setVerImput] = useState(false)
@@ -74,10 +114,10 @@ export function Titulo({ id, text, type, style }) {
 
     var htmlStyle = ''
 
-    if(style != undefined){
-        htmlStyle+=' style="'
+    const styleObjectToString = (styleObject)=>{
+        var output =' style="'
         
-        Object.getOwnPropertyNames(style).forEach((name)=>{
+        Object.getOwnPropertyNames(styleObject).forEach((name)=>{
             var formatName = ''
             
             for(var i=0;i<name.length;i++){
@@ -89,14 +129,19 @@ export function Titulo({ id, text, type, style }) {
                 }
             }
             
-            htmlStyle+=formatName+":"+style[name]+";"
+            output+=formatName+":"+styleObject[name]+";"
         })
 
-        htmlStyle+='"'
+        output+='"'
 
+        return output
     }
 
-    const textHtml = "<" + type + htmlStyle+">" + textValue + "</" + type + ">"
+    if(style != undefined){
+        htmlStyle=styleObjectToString(style)
+    }
+
+    const textHtml = "<" + type + htmlStyle+">" + formatHtmlText(textValue) + "</" + type + ">"
 
     return (
         <>
@@ -128,7 +173,8 @@ export function Parrafo({ id, text, style }) {
     const handleOnChange = (event) => { setTextValue(event.target.value) }
 
     const textParrafo = (text) => {
-        const replacedText = text.replaceAll('\n','<br/>')
+        var formatText = formatHtmlText(text)
+        const replacedText = formatText.replaceAll('\n','<br/>')
         return replacedText
     } 
 

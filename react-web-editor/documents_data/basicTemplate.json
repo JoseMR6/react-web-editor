@@ -51,5 +51,11 @@
             "id": "el6",
             "type": "add_element"
         }
-    ]
+    ],
+    "style":{
+        "general":{
+            "color": "#969696",
+            "fontFamily": "sans-serif"
+        }
+    }
 }
