@@ -3,31 +3,16 @@ import { useElements } from '../../hooks/useElements.js'
 import './TElements.css'
 import { useMenu } from '../../hooks/useMenu.js'
 import { useState } from 'react'
-import { ELEMENT_TYPES, SELECTED_ELEMENT_TYPES } from '../../constants.js'
+import { ELEMENT_TYPES, SELECTED_ELEMENT_TYPES } from '../../constants/constants.js'
 import { formatHtmlText } from '../../logic/text.js'
+import { stylePropsToCssString } from '../../logic/elements.js'
 
 export function Element({ id, type, param, style }) {
     const [seeEditOptions, setSeeEditOptions] = useState(false)
-    const { removeElement, setElementoEditando, globalEstyles } = useElements()
+    const { removeElement, setElementoEditando} = useElements()
     const {setSelectedElementType} = useMenu()
-    var component = <div>error</div>
 
-    const heredarGlobalStyles = (fullStyle)=>{
-        var newStyle = structuredClone(fullStyle)
-        
-        if(newStyle == undefined) newStyle={}
-        if(globalEstyles.general==undefined) return newStyle
-        if(newStyle.color == undefined && globalEstyles.general.color!=undefined) 
-            newStyle.color = globalEstyles.general.color
-        if(newStyle.fontFamily == undefined&& globalEstyles.general.fontFamily!=undefined) 
-            newStyle.fontFamily = globalEstyles.general.fontFamily
-        if(newStyle.textAlign == undefined&& globalEstyles.general.textAlign!=undefined) 
-            newStyle.textAlign = globalEstyles.general.textAlign
-
-        return newStyle
-    }
-
-    var fullStyle = style
+    let component = <div>error</div>
 
     if (type == ELEMENT_TYPES.ADD_ELEMENT) {
         component = (
@@ -36,24 +21,20 @@ export function Element({ id, type, param, style }) {
             />
         )
     } else if (type == ELEMENT_TYPES.TITULO) {
-        fullStyle=heredarGlobalStyles(fullStyle)
-        
         component = (
             <Titulo
                 id={id}
                 text={param.text}
                 type={param.type}
-                style={fullStyle}
+                style={style}
             />
         )
     } else if (type == ELEMENT_TYPES.PARRAFO) {
-        fullStyle=heredarGlobalStyles(fullStyle)
-
         component = (
             <Parrafo
                 id={id}
                 text={param.text}
-                style={fullStyle}
+                style={style}
             />
         )
     }else if (type == ELEMENT_TYPES.SEPARADOR) {
@@ -112,25 +93,12 @@ export function Titulo({ id, text, type, style }) {
     const [verInput, setVerImput] = useState(false)
     const handleOnChange = (event) => { setTextValue(event.target.value) }
 
-    var htmlStyle = ''
+    let htmlStyle = ''
 
     const styleObjectToString = (styleObject)=>{
-        var output =' style="'
-        
-        Object.getOwnPropertyNames(styleObject).forEach((name)=>{
-            var formatName = ''
-            
-            for(var i=0;i<name.length;i++){
-                const char=name.charAt(i)
-                if(char==char.toUpperCase()){
-                    formatName+='-'+char.toLowerCase()
-                }else{
-                    formatName+=char
-                }
-            }
-            
-            output+=formatName+":"+styleObject[name]+";"
-        })
+        let output =' style="'
+
+        output += stylePropsToCssString(styleObject)
 
         output+='"'
 
@@ -149,7 +117,7 @@ export function Titulo({ id, text, type, style }) {
                 onMouseLeave={() => { setVerImput(false) }}
             >
                 <input type='text' value={textValue} onChange={handleOnChange}
-                    style={{ visibility: !verInput && 'hidden' , ...style}}
+                    style={{ ...style, visibility: !verInput && 'hidden'}}
                 />
                 <div dangerouslySetInnerHTML={{ __html: textHtml }}
                     onClick={() => { setVerImput(true) }}
@@ -191,7 +159,7 @@ export function Parrafo({ id, text, style }) {
             >
                 <textarea
                     onChange={handleOnChange}
-                    style={{ visibility: !verInput && 'hidden', ...style}}
+                    style={{...style, visibility: !verInput && 'hidden'}}
                     value={textValue}
                 />
                 <p onClick={() => { setVerImput(true)}}

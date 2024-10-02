@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { ElementsContext } from "../contexts/ElementsContext.jsx";
-import { ELEMENT_TYPES, HTML_TAG_TYPES } from "../constants.js";
+import { ELEMENT_TYPES, HTML_TAG_TYPES } from "../constants/constants.js";
 
 export function useElements() {
     const context = useContext(ElementsContext)
@@ -15,8 +15,8 @@ export function useElements() {
     } = context
 
     const addElements = ({idElement, addTag}) => {
-        var elementType = undefined
-        var tagText = "undefined de add element"
+        let elementType = undefined
+        let tagText = "undefined de add element"
 
         if (addTag == HTML_TAG_TYPES.H1 ||
             addTag == HTML_TAG_TYPES.H2 ||
@@ -59,7 +59,7 @@ export function useElements() {
             type: ELEMENT_TYPES.ADD_ELEMENT
         }
 
-        var newElement = { id: newIds[2] }
+        let newElement = { id: newIds[2] }
 
         if (elementType == ELEMENT_TYPES.TITULO ||
             elementType == ELEMENT_TYPES.PARRAFO

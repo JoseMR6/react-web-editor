@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 import { PropTypes } from 'prop-types'
-import { HTML_TAG_TYPES, SELECTED_ELEMENT_TYPES } from "../constants";
+import { HTML_TAG_TYPES, SELECTED_ELEMENT_TYPES } from "../constants/constants";
 
 export const MenuContext = createContext()
 

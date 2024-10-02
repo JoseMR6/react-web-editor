@@ -1,6 +1,6 @@
 import './EditMenu.css'
 import { EditMenuOptionHtmltag } from './EditMenuOptions.jsx'
-import { HTML_TAG_TYPES, SELECTED_ELEMENT_TYPES } from '../constants.js'
+import { HTML_TAG_TYPES, SELECTED_ELEMENT_TYPES } from '../constants/constants.js'
 import { EditElementOptions } from './EditMenuOptions.jsx'
 import { useMenu } from '../hooks/useMenu.js'
 import { useElements } from '../hooks/useElements.js'
@@ -16,7 +16,7 @@ export function EditMenu() {
         setSelectedElementType(value)
     }
 
-    var cont = 0;
+    let cont = 0;
     const htmlTagArray = Object.values(HTML_TAG_TYPES)
 
     return (
@@ -40,9 +40,9 @@ export function EditMenu() {
                 <option value={SELECTED_ELEMENT_TYPES.GLOBAL_DOCUMENT}>
                     {SELECTED_ELEMENT_TYPES.GLOBAL_DOCUMENT}
                 </option>
-                {/*<option value={SELECTED_ELEMENT_TYPES.GLOBAL_TAG}>
+                <option value={SELECTED_ELEMENT_TYPES.GLOBAL_TAG}>
                     {SELECTED_ELEMENT_TYPES.GLOBAL_TAG}
-                </option>*/}
+                </option>
                 <option value={SELECTED_ELEMENT_TYPES.SELECTED_ELEMENT}>
                     {SELECTED_ELEMENT_TYPES.SELECTED_ELEMENT}
                 </option>

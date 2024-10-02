@@ -15,8 +15,6 @@
 }
 
 #template-body {
-    background-color: #6d6d6d;
-    
     display: block;
     /*margin: 8px;*/
     /*min-height: 100%;*/
@@ -30,7 +28,6 @@
     padding-bottom: 1px;
     margin-bottom: 0px;
 
-    font-family: sans-serif;/*sans-serif*/
 
     /*margin-top: 1px;*/
     /*

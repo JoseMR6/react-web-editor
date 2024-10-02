@@ -1,7 +1,8 @@
 import { createContext, useRef, useState } from "react";
-import { ELEMENT_TYPES, HTML_TAG_TYPES } from "../constants.js";
+import { ELEMENT_TYPES, HTML_TAG_TYPES } from "../constants/constants.js";
 import { PropTypes } from 'prop-types'
 import basicTemplate from '../../documents_data/basicTemplate.json'
+import { GLOBAL_STYLE } from "../constants/globalStyle.js";
 
 export const ElementsContext = createContext()
 
@@ -9,7 +10,7 @@ export function ElementsProvider({ children }) {
     const contElements = useRef(0)
 
     const [elementos, setElementos] = useState(() => {
-        var documentoJson = []
+        let documentoJson = []
 
         if (basicTemplate) {
             documentoJson = basicTemplate.elements
@@ -57,7 +58,12 @@ export function ElementsProvider({ children }) {
         return documentoJson
     })
     const [elementoEditando, setElementoEditando] = useState(undefined)
-    const [globalEstyles, setGlobalEstyles] = useState(basicTemplate.style)
+    const [globalEstyles, setGlobalEstyles] = useState(()=>{
+        if(basicTemplate.style) return basicTemplate.style
+        else{
+            return GLOBAL_STYLE
+        }
+    })
 
     return (
         <ElementsContext.Provider value={{

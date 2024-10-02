@@ -10,6 +10,11 @@
             "param": {
                 "text": "Titulo h1 mock",
                 "type": "h1"
+            },
+            "style": {
+                "color": "#cf0a0a",
+                "backgroundColor": "rgb(237, 242, 250)",
+                "fontSize": "32px"
             }
         },
         {
@@ -22,6 +27,9 @@
             "param": {
                 "text": "Titulo h2 mock",
                 "type": "h2"
+            },
+            "style": {
+                "fontFamily": "Arial"
             }
         },
         {
@@ -33,11 +41,27 @@
             "type": "parrafo",
             "param": {
                 "text": "Parrafo de prueba"
+            },
+            "style": {
+                "color": "#969696",
+                "backgroundColor": "rgb(237, 242, 250)"
             }
         },
         {
             "id": "el6",
             "type": "add_element"
         }
-    ]
+    ],
+    "style":{
+        "#template-body":{
+            "color": "#969696",
+            "fontFamily": "sans-serif"
+        },
+        ".element-container h1":{
+            "fontSize": "10px"
+        },
+        ".element-container h2":{
+            "fontSize": "20px"
+        }
+    }
 }

@@ -9,6 +9,11 @@ export const HTML_TAG_TYPES = {
     SEP: 'sep'
 }
 
+export const STYLE_REFERENCES = {
+    GLOBAL: '#template-body',
+    G_TAG: '.element-container'
+}
+
 export const ELEMENT_TYPES = {
     ADD_ELEMENT: 'add_element',
     TITULO: 'titulo',

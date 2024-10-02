@@ -7,13 +7,13 @@ import {
     TextAlignJustifyIcon
 } from './Icons.jsx'
 import { useElements } from '../hooks/useElements.js'
-import { ALIGN_TYPES, FUENTES, SELECTED_ELEMENT_TYPES } from '../constants.js'
+import { ALIGN_TYPES, FUENTES, SELECTED_ELEMENT_TYPES, STYLE_REFERENCES } from '../constants/constants.js'
 
 export function EditMenuOptionHtmltag({ htmltag }) {
     const { selectedTag, setSelectedTag } = useMenu()
     const { setDraggedElement } = useMouse()
 
-    var selected = ""
+    let selected = ""
     if (htmltag == selectedTag) { selected = " selected" }
     const optionClass = 'edit-option-text' + selected
 
@@ -50,76 +50,74 @@ EditMenuOptionHtmltag.propTypes = {
 
 export function EditElementOptions() {
     const { elementoEditando, elementos, setElementos, globalEstyles,
-        setGlobalEstyles 
+        setGlobalEstyles
     } = useElements()
-    const { selectedElementType } = useMenu()
+    const { selectedTag, selectedElementType } = useMenu()
 
-    var index = -1
-    var elementoActual = undefined
-
-    var color = '#000000'
-    var fontSize = '0'
-    var fontSelected = FUENTES[0]
-    var align = ALIGN_TYPES.LEFT
-
-    if (selectedElementType == SELECTED_ELEMENT_TYPES.GLOBAL_DOCUMENT) {
-        elementoActual = { style: globalEstyles.general }
-    }else{
-        if (globalEstyles.general.color) {
-            color = globalEstyles.general.color
-        }
-        if (globalEstyles.general.fontSize) {
-            fontSize = globalEstyles.general.fontSize
-        }
-        if (globalEstyles.general.fontFamily) {
-            fontSelected = globalEstyles.general.fontFamily
-        }
-        if (globalEstyles.general.textAlign) {
-            align = globalEstyles.general.textAlign
-        }
+    const editProps = {
+        color: '#000000',
+        fontSize: '0',
+        fontFamily: FUENTES[0],
+        textAlign: ALIGN_TYPES.LEFT
     }
 
+    const editPropsKeys = Object.keys(editProps)
 
-    if (selectedElementType == SELECTED_ELEMENT_TYPES.SELECTED_ELEMENT
+    const globalStyleKey = STYLE_REFERENCES.GLOBAL
+    const tagStyleKey = STYLE_REFERENCES.G_TAG+' '+selectedTag
+
+    let index = -1
+    let elementoActual = undefined
+
+    editPropsKeys.forEach((editPropKey) => {
+        if (globalEstyles[globalStyleKey][editPropKey]) {
+            editProps[editPropKey] = globalEstyles[globalStyleKey][editPropKey]
+        }
+    })
+
+    if (selectedElementType == SELECTED_ELEMENT_TYPES.GLOBAL_DOCUMENT) {
+        elementoActual = { style: globalEstyles[globalStyleKey] }
+    } else if (selectedElementType == SELECTED_ELEMENT_TYPES.SELECTED_ELEMENT
         && elementoEditando) {
         index = elementos.findIndex(
             (element) => element.id == elementoEditando
         )
 
         elementoActual = elementos[index]
+    }else if(selectedElementType == SELECTED_ELEMENT_TYPES.GLOBAL_TAG &&
+        selectedTag
+    ){
+        let tagStyle = {}
+        if(globalEstyles[tagStyleKey]) tagStyle = globalEstyles[tagStyleKey]
+        elementoActual = { style: tagStyle }
     }
 
     if (elementoActual && elementoActual.style) {
-        if (elementoActual.style.color) {
-            color = elementoActual.style.color
-        }
-        if (elementoActual.style.fontSize) {
-            fontSize = elementoActual.style.fontSize
-        }
-        if (elementoActual.style.fontFamily) {
-            fontSelected = elementoActual.style.fontFamily
-        }
-        if (elementoActual.style.textAlign) {
-            align = elementoActual.style.textAlign
-        }
+        editPropsKeys.forEach((editPropKey) => {
+            if (elementoActual.style[editPropKey]) {
+                editProps[editPropKey] = elementoActual.style[editPropKey]
+            }
+        })
     }
-
-    var numFontSize = parseFloat(fontSize)
-    const seleted = ' selected'
 
     const changeStyleOption = (option, value) => {
         if (elementoActual == undefined) return
 
         if (selectedElementType == SELECTED_ELEMENT_TYPES.GLOBAL_DOCUMENT) {
             const newGlobalEstyles = structuredClone(globalEstyles)
-            if (newGlobalEstyles.general == undefined) newGlobalEstyles.general = {}
-            newGlobalEstyles.general[option] = value
+            if (newGlobalEstyles[globalStyleKey] == undefined) newGlobalEstyles[globalStyleKey] = {}
+            newGlobalEstyles[globalStyleKey][option] = value
             setGlobalEstyles(newGlobalEstyles)
         } else if (selectedElementType == SELECTED_ELEMENT_TYPES.SELECTED_ELEMENT) {
             const newElementos = structuredClone(elementos)
             if (newElementos[index].style == undefined) newElementos[index].style = {}
             newElementos[index].style[option] = value
             setElementos(newElementos)
+        }else if(selectedElementType == SELECTED_ELEMENT_TYPES.GLOBAL_TAG){
+            const newGlobalEstyles = structuredClone(globalEstyles)
+            if (newGlobalEstyles[tagStyleKey] == undefined) newGlobalEstyles[tagStyleKey] = {}
+            newGlobalEstyles[tagStyleKey][option] = value
+            setGlobalEstyles(newGlobalEstyles)
         }
     }
 
@@ -128,7 +126,7 @@ export function EditElementOptions() {
     }
 
     const handleOnChangeSize = (event) => {
-        var value = event.target.value
+        let value = event.target.value
         if (value == '' || value == undefined || value < 0) value = 0
 
         changeStyleOption('fontSize', value + 'px')
@@ -145,7 +143,7 @@ export function EditElementOptions() {
     return (
         <>
             <div className='edit-option-font'>
-                <select className='select-option-font' value={fontSelected}
+                <select className='select-option-font' value={editProps.fontFamily}
                     onChange={handleOnChangeFont}
                 >
                     {
@@ -161,7 +159,7 @@ export function EditElementOptions() {
             </div>
             {selectedElementType != SELECTED_ELEMENT_TYPES.GLOBAL_DOCUMENT &&
                 <div className='edit-option-size'>
-                    <input type='number' value={numFontSize}
+                    <input type='number' value={parseFloat(editProps.fontSize)}
                         onChange={handleOnChangeSize}
                     />
                 </div>
@@ -169,14 +167,27 @@ export function EditElementOptions() {
             <div className='edit-option-color'>
                 <input
                     type='color'
-                    value={color}
+                    value={editProps.color}
                     onChange={handleOnChangeColor}
                 />
             </div>
+            <EditTextAlignOption
+                value={editProps.textAlign}
+                handleOnChangeAlign={handleOnChangeAlign}
+            />
+        </>
+    )
+}
+
+export function EditTextAlignOption({ value,  handleOnChangeAlign}) {
+    const seleted = ' selected'
+    
+    return (
+        <>
             <div className=
                 {
                     'edit-option-icon edit-align ' +
-                    ((align == ALIGN_TYPES.LEFT) ? seleted : '')
+                    ((value == ALIGN_TYPES.LEFT) ? seleted : '')
                 }
                 onClick={() => { handleOnChangeAlign(ALIGN_TYPES.LEFT) }}
             >
@@ -185,7 +196,7 @@ export function EditElementOptions() {
             <div className=
                 {
                     'edit-option-icon edit-align ' +
-                    ((align == ALIGN_TYPES.CENTER) ? seleted : '')
+                    ((value == ALIGN_TYPES.CENTER) ? seleted : '')
                 }
                 onClick={() => { handleOnChangeAlign(ALIGN_TYPES.CENTER) }}
             >
@@ -194,7 +205,7 @@ export function EditElementOptions() {
             <div className=
                 {
                     'edit-option-icon edit-align ' +
-                    ((align == ALIGN_TYPES.RIGHT) ? seleted : '')
+                    ((value == ALIGN_TYPES.RIGHT) ? seleted : '')
                 }
                 onClick={() => { handleOnChangeAlign(ALIGN_TYPES.RIGHT) }}
             >
@@ -203,7 +214,7 @@ export function EditElementOptions() {
             <div className=
                 {
                     'edit-option-icon edit-align ' +
-                    ((align == ALIGN_TYPES.JUSTIFY) ? seleted : '')
+                    ((value == ALIGN_TYPES.JUSTIFY) ? seleted : '')
                 }
                 onClick={() => { handleOnChangeAlign(ALIGN_TYPES.JUSTIFY) }}
             >
@@ -211,4 +222,9 @@ export function EditElementOptions() {
             </div>
         </>
     )
+}
+
+EditTextAlignOption.propTypes = {
+    value: PropTypes.string.isRequired,
+    handleOnChangeAlign: PropTypes.func.isRequired
 }
